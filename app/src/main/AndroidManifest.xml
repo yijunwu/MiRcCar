@@ -4,6 +4,7 @@
     android:versionName="1.5.3"
     android:compileSdkVersion="29"
     android:compileSdkVersionCodename="10"
+    xmlns:tools="http://schemas.android.com/tools"
     platformBuildVersionCode="29"
     platformBuildVersionName="10">
     <uses-sdk
@@ -53,7 +54,7 @@
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:authorities="com.rcfans.fileProvider"
             android:grantUriPermissions="true">
@@ -105,18 +106,21 @@
             android:theme="@style/ActivityTranslucent"
             android:name="com.blankj.utilcode.util.UtilsTransActivity4MainProcess"
             android:configChanges="screenSize|orientation|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:replace="android:configChanges,android:windowSoftInputMode"/>
         <activity
             android:theme="@style/ActivityTranslucent"
             android:name="com.blankj.utilcode.util.UtilsTransActivity"
             android:multiprocess="true"
             android:configChanges="screenSize|orientation|keyboardHidden"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:replace="android:configChanges,android:windowSoftInputMode"/>
         <provider
             android:name="com.blankj.utilcode.util.UtilsFileProvider"
             android:exported="false"
             android:authorities="com.rcfans.utilcode.provider"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/util_code_provider_paths"/>
