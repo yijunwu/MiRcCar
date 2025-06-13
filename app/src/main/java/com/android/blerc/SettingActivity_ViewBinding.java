@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Unbinder;
 import butterknife.internal.Utils;
-import com.rcfans.R;
+
 
 /* loaded from: classes.dex */
 public class SettingActivity_ViewBinding implements Unbinder {

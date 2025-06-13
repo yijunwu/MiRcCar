@@ -6,14 +6,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import com.andorid.blerc.AboutActivity;
-import com.andorid.blerc.BaseActivity;
-import com.andorid.blerc.GuideActivity;
-import com.andorid.blerc.LanguageActivity;
-import com.andorid.blerc.PreferenceActivity;
-import com.andorid.blerc.db.DBConstant;
+import com.android.blerc.AboutActivity;
+import com.android.blerc.BaseActivity;
+import com.android.blerc.GuideActivity;
+import com.android.blerc.LanguageActivity;
+import com.android.blerc.PreferenceActivity;
+import com.android.blerc.db.DBConstant;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.rcfans.R;
+
 import io.reactivex.functions.Consumer;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -39,7 +39,7 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
     public void onPermissionsGranted(int i, List<String> list) {
     }
 
-    @Override // com.andorid.blerc.BaseActivity, android.app.Activity
+    @Override // com.android.blerc.BaseActivity, android.app.Activity
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         getWindow().setFlags(1024, 1024);
@@ -49,7 +49,7 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
         initView();
     }
 
-    @Override // com.andorid.blerc.BaseActivity, android.app.Activity
+    @Override // com.android.blerc.BaseActivity, android.app.Activity
     protected void onResume() {
         super.onResume();
         onCreate(null);

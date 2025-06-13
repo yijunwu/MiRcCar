@@ -84,7 +84,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <com.andorid.blerc.CircleProgressBar
+            <com.android.blerc.CircleProgressBar
                 android:id="@+id/download_progressbar"
                 android:layout_width="94dp"
                 android:layout_height="94dp"

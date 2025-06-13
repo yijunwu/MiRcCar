@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ActivityTranslucent" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android.windowBackground">@android:color/transparent</item>
-        <item name="android.windowNoTitle">true</item>
-        <item name="android.windowIsTranslucent">true</item>
-        <item name="android.windowContentOverlay">@null</item>
-        <item name="android.windowAnimationStyle">@null</item>
-        <item name="android.background">@android:color/transparent</item>
-        <item name="android.backgroundDimEnabled">false</item>
-        <item name="android.windowDisablePreview">true</item>
-        <item name="android.colorBackgroundCacheHint">@null</item>
-        <item name="android.windowActionBar">false</item>
-        <item name="android.statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
     <style name="Base.TextAppearance.AppCompat" parent="@android:style/TextAppearance.Material">
     </style>
@@ -76,9 +76,9 @@
     <style name="Base.TextAppearance.AppCompat.Widget.Button" parent="@android:style/TextAppearance.Material.Widget.Button">
     </style>
     <style name="Base.TextAppearance.AppCompat.Widget.PopupMenu.Header" parent="@style/TextAppearance.AppCompat">
-        <item name="android.textSize">@dimen/abc_text_size_menu_header_material</item>
-        <item name="android.textColor">?android:attr/textColorSecondary</item>
-        <item name="android.fontFamily">@string/abc_font_family_title_material</item>
+        <item name="android:textSize">@dimen/abc_text_size_menu_header_material</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:fontFamily">@string/abc_font_family_title_material</item>
     </style>
     <style name="Base.TextAppearance.AppCompat.Widget.PopupMenu.Large" parent="@android:style/TextAppearance.Material.Widget.PopupMenu.Large">
     </style>
@@ -103,13 +103,13 @@
     <style name="Base.ThemeOverlay.AppCompat.Dialog" parent="@style/Base.V21.ThemeOverlay.AppCompat.Dialog">
     </style>
     <style name="Base.V21.Theme.AppCompat" parent="@style/Base.V7.Theme.AppCompat">
-        <item name="android.colorControlNormal">?attr/colorControlNormal</item>
-        <item name="android.colorControlActivated">?attr/colorControlActivated</item>
-        <item name="android.colorButtonNormal">?attr/colorButtonNormal</item>
-        <item name="android.colorControlHighlight">?attr/colorControlHighlight</item>
-        <item name="android.colorPrimary">?attr/colorPrimary</item>
-        <item name="android.colorPrimaryDark">?attr/colorPrimaryDark</item>
-        <item name="android.colorAccent">?attr/colorAccent</item>
+        <item name="android:colorControlNormal">?attr/colorControlNormal</item>
+        <item name="android:colorControlActivated">?attr/colorControlActivated</item>
+        <item name="android:colorButtonNormal">?attr/colorButtonNormal</item>
+        <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorPrimary">?attr/colorPrimary</item>
+        <item name="android:colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="android:colorAccent">?attr/colorAccent</item>
         <item name="actionBarDivider">?android:attr/actionBarDivider</item>
         <item name="actionBarItemBackground">@drawable/abc_action_bar_item_background_material</item>
         <item name="actionBarSize">?android:attr/actionBarSize</item>
@@ -138,16 +138,16 @@
         <item name="textAppearanceSmallPopupMenu">?android:attr/textAppearanceSmallPopupMenu</item>
     </style>
     <style name="Base.V21.Theme.AppCompat.Dialog" parent="@style/Base.V7.Theme.AppCompat.Dialog">
-        <item name="android.windowElevation">@dimen/abc_floating_window_z</item>
+        <item name="android:windowElevation">@dimen/abc_floating_window_z</item>
     </style>
     <style name="Base.V21.Theme.AppCompat.Light" parent="@style/Base.V7.Theme.AppCompat.Light">
-        <item name="android.colorControlNormal">?attr/colorControlNormal</item>
-        <item name="android.colorControlActivated">?attr/colorControlActivated</item>
-        <item name="android.colorButtonNormal">?attr/colorButtonNormal</item>
-        <item name="android.colorControlHighlight">?attr/colorControlHighlight</item>
-        <item name="android.colorPrimary">?attr/colorPrimary</item>
-        <item name="android.colorPrimaryDark">?attr/colorPrimaryDark</item>
-        <item name="android.colorAccent">?attr/colorAccent</item>
+        <item name="android:colorControlNormal">?attr/colorControlNormal</item>
+        <item name="android:colorControlActivated">?attr/colorControlActivated</item>
+        <item name="android:colorButtonNormal">?attr/colorButtonNormal</item>
+        <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorPrimary">?attr/colorPrimary</item>
+        <item name="android:colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="android:colorAccent">?attr/colorAccent</item>
         <item name="actionBarDivider">?android:attr/actionBarDivider</item>
         <item name="actionBarItemBackground">@drawable/abc_action_bar_item_background_material</item>
         <item name="actionBarSize">?android:attr/actionBarSize</item>
@@ -176,10 +176,10 @@
         <item name="textAppearanceSmallPopupMenu">?android:attr/textAppearanceSmallPopupMenu</item>
     </style>
     <style name="Base.V21.Theme.AppCompat.Light.Dialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">
-        <item name="android.windowElevation">@dimen/abc_floating_window_z</item>
+        <item name="android:windowElevation">@dimen/abc_floating_window_z</item>
     </style>
     <style name="Base.V21.ThemeOverlay.AppCompat.Dialog" parent="@style/Base.V7.ThemeOverlay.AppCompat.Dialog">
-        <item name="android.windowElevation">@dimen/abc_floating_window_z</item>
+        <item name="android:windowElevation">@dimen/abc_floating_window_z</item>
     </style>
     <style name="Base.Widget.AppCompat.ActionBar.TabText" parent="@android:style/Widget.Material.ActionBar.TabText">
     </style>
@@ -188,19 +188,19 @@
     <style name="Base.Widget.AppCompat.ActionButton" parent="@android:style/Widget.Material.ActionButton">
     </style>
     <style name="Base.Widget.AppCompat.ActionButton.CloseMode" parent="@android:style/Widget.Material.ActionButton.CloseMode">
-        <item name="android.minWidth">56dp</item>
+        <item name="android:minWidth">56dp</item>
     </style>
     <style name="Base.Widget.AppCompat.ActionButton.Overflow" parent="@android:style/Widget.Material.ActionButton.Overflow">
     </style>
     <style name="Base.Widget.AppCompat.AutoCompleteTextView" parent="@android:style/Widget.Material.AutoCompleteTextView">
-        <item name="android.background">?attr/editTextBackground</item>
+        <item name="android:background">?attr/editTextBackground</item>
     </style>
     <style name="Base.Widget.AppCompat.Button" parent="@android:style/Widget.Material.Button">
     </style>
     <style name="Base.Widget.AppCompat.Button.Borderless" parent="@android:style/Widget.Material.Button.Borderless">
     </style>
     <style name="Base.Widget.AppCompat.Button.Borderless.Colored" parent="@android:style/Widget.Material.Button.Borderless.Colored">
-        <item name="android.textColor">@color/abc_btn_colored_borderless_text_material</item>
+        <item name="android:textColor">@color/abc_btn_colored_borderless_text_material</item>
     </style>
     <style name="Base.Widget.AppCompat.Button.Small" parent="@android:style/Widget.Material.Button.Small">
     </style>
@@ -213,7 +213,7 @@
     <style name="Base.Widget.AppCompat.DropDownItem.Spinner" parent="@android:style/Widget.Material.DropDownItem.Spinner">
     </style>
     <style name="Base.Widget.AppCompat.EditText" parent="@android:style/Widget.Material.EditText">
-        <item name="android.background">?attr/editTextBackground</item>
+        <item name="android:background">?attr/editTextBackground</item>
     </style>
     <style name="Base.Widget.AppCompat.ImageButton" parent="@android:style/Widget.Material.ImageButton">
     </style>
@@ -226,8 +226,8 @@
     <style name="Base.Widget.AppCompat.Light.PopupMenu" parent="@android:style/Widget.Material.Light.PopupMenu">
     </style>
     <style name="Base.Widget.AppCompat.Light.PopupMenu.Overflow" parent="@style/Base.Widget.AppCompat.Light.PopupMenu">
-        <item name="android.dropDownHorizontalOffset">-4dp</item>
-        <item name="android.overlapAnchor">true</item>
+        <item name="android:dropDownHorizontalOffset">-4dp</item>
+        <item name="android:overlapAnchor">true</item>
     </style>
     <style name="Base.Widget.AppCompat.ListPopupWindow" parent="@android:style/Widget.Material.ListPopupWindow">
     </style>
@@ -240,8 +240,8 @@
     <style name="Base.Widget.AppCompat.PopupMenu" parent="@android:style/Widget.Material.PopupMenu">
     </style>
     <style name="Base.Widget.AppCompat.PopupMenu.Overflow" parent="@style/Base.Widget.AppCompat.PopupMenu">
-        <item name="android.dropDownHorizontalOffset">-4dp</item>
-        <item name="android.overlapAnchor">true</item>
+        <item name="android:dropDownHorizontalOffset">-4dp</item>
+        <item name="android:overlapAnchor">true</item>
     </style>
     <style name="Base.Widget.AppCompat.ProgressBar" parent="@android:style/Widget.Material.ProgressBar">
     </style>
@@ -262,33 +262,33 @@
     <style name="Platform.AppCompat.Light" parent="@style/Platform.V21.AppCompat.Light">
     </style>
     <style name="Platform.ThemeOverlay.AppCompat" parent="">
-        <item name="android.colorControlNormal">?attr/colorControlNormal</item>
-        <item name="android.colorControlActivated">?attr/colorControlActivated</item>
-        <item name="android.colorButtonNormal">?attr/colorButtonNormal</item>
-        <item name="android.colorControlHighlight">?attr/colorControlHighlight</item>
-        <item name="android.colorPrimary">?attr/colorPrimary</item>
-        <item name="android.colorPrimaryDark">?attr/colorPrimaryDark</item>
-        <item name="android.colorAccent">?attr/colorAccent</item>
+        <item name="android:colorControlNormal">?attr/colorControlNormal</item>
+        <item name="android:colorControlActivated">?attr/colorControlActivated</item>
+        <item name="android:colorButtonNormal">?attr/colorButtonNormal</item>
+        <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
+        <item name="android:colorPrimary">?attr/colorPrimary</item>
+        <item name="android:colorPrimaryDark">?attr/colorPrimaryDark</item>
+        <item name="android:colorAccent">?attr/colorAccent</item>
     </style>
     <style name="Platform.ThemeOverlay.AppCompat.Dark" parent="@style/Platform.ThemeOverlay.AppCompat">
     </style>
     <style name="Platform.ThemeOverlay.AppCompat.Light" parent="@style/Platform.ThemeOverlay.AppCompat">
     </style>
     <style name="Platform.V21.AppCompat" parent="@android:style/Theme.Material.NoActionBar">
-        <item name="android.textColorHintInverse">@color/abc_hint_foreground_material_light</item>
-        <item name="android.textColorHint">@color/abc_hint_foreground_material_dark</item>
-        <item name="android.textColorLink">?android:attr/colorAccent</item>
-        <item name="android.buttonBarStyle">?attr/buttonBarStyle</item>
-        <item name="android.buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
-        <item name="android.textColorLinkInverse">?android:attr/colorAccent</item>
+        <item name="android:textColorHintInverse">@color/abc_hint_foreground_material_light</item>
+        <item name="android:textColorHint">@color/abc_hint_foreground_material_dark</item>
+        <item name="android:textColorLink">?android:attr/colorAccent</item>
+        <item name="android:buttonBarStyle">?attr/buttonBarStyle</item>
+        <item name="android:buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
+        <item name="android:textColorLinkInverse">?android:attr/colorAccent</item>
     </style>
     <style name="Platform.V21.AppCompat.Light" parent="@android:style/Theme.Material.Light.NoActionBar">
-        <item name="android.textColorHintInverse">@color/abc_hint_foreground_material_dark</item>
-        <item name="android.textColorHint">@color/abc_hint_foreground_material_light</item>
-        <item name="android.textColorLink">?android:attr/colorAccent</item>
-        <item name="android.buttonBarStyle">?attr/buttonBarStyle</item>
-        <item name="android.buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
-        <item name="android.textColorLinkInverse">?android:attr/colorAccent</item>
+        <item name="android:textColorHintInverse">@color/abc_hint_foreground_material_dark</item>
+        <item name="android:textColorHint">@color/abc_hint_foreground_material_light</item>
+        <item name="android:textColorLink">?android:attr/colorAccent</item>
+        <item name="android:buttonBarStyle">?attr/buttonBarStyle</item>
+        <item name="android:buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
+        <item name="android:textColorLinkInverse">?android:attr/colorAccent</item>
     </style>
     <style name="TextAppearance.Compat.Notification" parent="@android:style/TextAppearance.Material.Notification">
     </style>
@@ -299,11 +299,11 @@
     <style name="TextAppearance.Compat.Notification.Title" parent="@android:style/TextAppearance.Material.Notification.Title">
     </style>
     <style name="Widget.Compat.NotificationActionContainer" parent="">
-        <item name="android.background">@drawable/notification_action_background</item>
+        <item name="android:background">@drawable/notification_action_background</item>
     </style>
     <style name="Widget.Compat.NotificationActionText" parent="">
-        <item name="android.textAppearance">?android:attr/textAppearanceButton</item>
-        <item name="android.textSize">@dimen/notification_action_text_size</item>
-        <item name="android.textColor">@color/secondary_text_default_material_light</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceButton</item>
+        <item name="android:textSize">@dimen/notification_action_text_size</item>
+        <item name="android:textColor">@color/secondary_text_default_material_light</item>
     </style>
 </resources>

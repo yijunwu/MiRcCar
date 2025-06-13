@@ -125,7 +125,7 @@
         <enum name="src_in" value="5" />
         <enum name="src_over" value="3" />
     </attr-->
-    <attr name="banner_aspectRatio" format="float">
+    <!--attr name="banner_aspectRatio" format="float">
     </attr>
     <attr name="banner_contentBottomMargin" format="dimension">
     </attr>
@@ -182,7 +182,7 @@
         <enum name="zoomCenter" value="8" />
         <enum name="zoomFade" value="6" />
         <enum name="zoomStack" value="9" />
-    </attr>
+    </attr-->
     <!--attr name="barLength" format="dimension">
     </attr>
     <attr name="barrierAllowsGoneWidgets" format="boolean">
@@ -644,10 +644,10 @@
     </attr>
     <attr name="lottie_repeatCount" format="integer">
     </attr>
-    <attr name="lottie_repeatMode">
+    <!--attr name="lottie_repeatMode">
         <enum name="restart" value="1" />
         <enum name="reverse" value="2" />
-    </attr>
+    </attr-->
     <attr name="lottie_scale" format="float">
     </attr>
     <attr name="lottie_url" format="string">
@@ -944,4 +944,11 @@
     </attr>
     <attr name="windowNoTitle" format="boolean">
     </attr-->
+    <declare-styleable name="LoadingView">
+        <attr name="loading_renderer_type" format="enum">
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ScrollingImageView">
+        <attr name="siv_auto_play" format="boolean" />
+    </declare-styleable>
 </resources>

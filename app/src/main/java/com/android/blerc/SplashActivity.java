@@ -11,9 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -23,22 +20,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.andorid.blerc.BarBaseActivity;
-import com.andorid.blerc.LottieAnimationView;
-import com.andorid.blerc.bean.Splashbean;
-import com.andorid.blerc.common.ParamRequestInfo;
-import com.andorid.blerc.common.RxEvent;
-import com.andorid.blerc.common.SystemInfo;
-import com.andorid.blerc.common.ViseBle;
-import com.andorid.blerc.db.DBConstant;
-import com.andorid.blerc.location.ApiLevelHelper;
-import com.andorid.blerc.location.LocationUtils;
-import com.andorid.blerc.util.DataUtil;
-import com.andorid.blerc.util.HexUtil;
-import com.andorid.blerc.util.NetworkUtils;
-import com.andorid.blerc.util.Utils;
-import com.rcfans.R;
+import com.android.blerc.BarBaseActivity;
+import com.android.blerc.LottieAnimationView;
+import com.android.blerc.bean.Splashbean;
+import com.android.blerc.common.ParamRequestInfo;
+import com.android.blerc.common.RxEvent;
+import com.android.blerc.common.SystemInfo;
+import com.android.blerc.common.ViseBle;
+import com.android.blerc.db.DBConstant;
+import com.android.blerc.location.ApiLevelHelper;
+import com.android.blerc.location.LocationUtils;
+import com.android.blerc.util.DataUtil;
+import com.android.blerc.util.HexUtil;
+import com.android.blerc.util.NetworkUtils;
+import com.android.blerc.util.Utils;
+
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import java.util.ArrayList;
@@ -55,6 +58,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 /* loaded from: classes.dex */
 public class SplashActivity extends BarBaseActivity implements EasyPermissions.PermissionCallbacks {
+    @BindView(R.id.animation_view)
     LottieAnimationView animation;
     AppVersionDialog appVersionDialog;
     ImageView image;
@@ -62,6 +66,7 @@ public class SplashActivity extends BarBaseActivity implements EasyPermissions.P
     List<ImageView> list;
     List<ImageView> listDoc;
     LinearLayout ll;
+    @BindView(R.id.one_layout)
     RelativeLayout one_layout;
     Button start_btn;
     RelativeLayout two_layout;
@@ -106,7 +111,7 @@ public class SplashActivity extends BarBaseActivity implements EasyPermissions.P
         }
     };
 
-    @Override // com.andorid.blerc.BarBaseActivity, com.andorid.blerc.BaseActivity, android.app.Activity
+    @Override // com.android.blerc.BarBaseActivity, com.android.blerc.BaseActivity, android.app.Activity
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         if ((getIntent().getFlags() & 4194304) != 0) {
@@ -350,7 +355,7 @@ public class SplashActivity extends BarBaseActivity implements EasyPermissions.P
                 }
 
                 @Override // com.zhy.http.okhttp.callback.Callback
-                public void onResponse(String str, int i3) throws JSONException {
+                public void onResponse(String str, int i3) {
                     Log.d("CarMi", "response : " + str);
                     try {
                         JSONObject jSONObject = new JSONObject(str);

@@ -687,7 +687,7 @@
         <item name="titleMargin">4dp</item>
         <item name="titleTextAppearance">@style/TextAppearance.Widget.AppCompat.Toolbar.Title</item>
     </style>
-    <style name="Base.Widget.AppCompat.ActionBar" parent="">
+    <style name="Base.Widget.AppCompat.ActionBar" parent="@android:style/Widget.ActionBar">
         <item name="android:gravity">center_vertical</item>
         <item name="actionButtonStyle">@style/Widget.AppCompat.ActionButton</item>
         <item name="actionOverflowButtonStyle">@style/Widget.AppCompat.ActionButton.Overflow</item>

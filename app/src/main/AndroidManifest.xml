@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme"
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
-        android:name="com.andorid.blerc.MyApplication"
+        android:name="com.android.blerc.MyApplication"
         android:allowBackup="true"
         android:largeHeap="true"
         android:supportsRtl="true"
@@ -63,38 +63,38 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
         <activity
-            android:name="com.andorid.blerc.dfu.service.NotificationActivity"
+            android:name="com.android.blerc.dfu.service.NotificationActivity"
             android:configChanges="locale"/>
         <activity
-            android:name="com.andorid.blerc.DfuUpdateActivity"
+            android:name="com.android.blerc.DfuUpdateActivity"
             android:configChanges="locale"/>
-        <service android:name="com.andorid.blerc.dfu.service.DfuService"/>
+        <service android:name="com.android.blerc.dfu.service.DfuService"/>
         <activity
-            android:name="com.andorid.blerc.GarageActivity"
+            android:name="com.android.blerc.GarageActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity
-            android:name="com.andorid.blerc.PreferenceActivity"
+            android:name="com.android.blerc.PreferenceActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity
-            android:name="com.andorid.blerc.LanguageActivity"
+            android:name="com.android.blerc.LanguageActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity
-            android:name="com.andorid.blerc.AboutActivity"
+            android:name="com.android.blerc.AboutActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity
-            android:name="com.andorid.blerc.VersionActivity"
+            android:name="com.android.blerc.VersionActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity
-            android:name="com.andorid.blerc.GuideActivity"
+            android:name="com.android.blerc.GuideActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity
-            android:name="com.andorid.blerc.ProtocolActivity"
+            android:name="com.android.blerc.ProtocolActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|orientation|keyboardHidden|locale"/>
         <activity

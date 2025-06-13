@@ -324,7 +324,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.andorid.blerc.DragView
+                <com.android.blerc.DragView
                     android:id="@+id/drag_view"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -495,7 +495,7 @@
                                     android:layout_height="230dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_centerInParent="true">
-                                    <com.andorid.blerc.VerticalSeekBar
+                                    <com.android.blerc.VerticalSeekBar
                                         android:id="@+id/verticalSeekBar"
                                         android:focusable="true"
                                         android:layout_width="wrap_content"
@@ -511,8 +511,8 @@
                             </RelativeLayout>
                         </ScrollView>
                     </RelativeLayout>
-                </com.andorid.blerc.DragView>
-                <com.andorid.blerc.DragView
+                </com.android.blerc.DragView>
+                <com.android.blerc.DragView
                     android:id="@+id/drag_view1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -689,7 +689,7 @@
                                     android:layout_height="230dp"
                                     android:layout_marginTop="10dp"
                                     android:layout_centerInParent="true">
-                                    <com.andorid.blerc.VerticalSeekBar
+                                    <com.android.blerc.VerticalSeekBar
                                         android:id="@+id/verticalSeekBar1"
                                         android:focusable="true"
                                         android:layout_width="wrap_content"
@@ -706,7 +706,7 @@
                             </RelativeLayout>
                         </ScrollView>
                     </RelativeLayout>
-                </com.andorid.blerc.DragView>
+                </com.android.blerc.DragView>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"

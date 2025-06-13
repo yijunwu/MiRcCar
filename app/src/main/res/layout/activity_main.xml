@@ -191,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/turn_reverse"/>
-                        <com.andorid.blerc.SwitchButton
+                        <com.android.blerc.SwitchButton
                             android:id="@+id/switch_turn"
                             android:layout_width="42dp"
                             android:layout_height="25dp"
@@ -223,7 +223,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/accelerator_reverse"/>
-                        <com.andorid.blerc.SwitchButton
+                        <com.android.blerc.SwitchButton
                             android:id="@+id/switch_accelerator"
                             android:layout_width="42dp"
                             android:layout_height="25dp"
@@ -327,7 +327,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <com.andorid.blerc.DragView
+                <com.android.blerc.DragView
                     android:id="@+id/drag_view"
                     android:scrollbars="none"
                     android:layout_width="0dp"
@@ -526,7 +526,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="230dp"
                                     android:layout_centerInParent="true">
-                                    <com.andorid.blerc.VerticalSeekBar
+                                    <com.android.blerc.VerticalSeekBar
                                         android:id="@+id/verticalSeekBar"
                                         android:focusable="true"
                                         android:layout_width="wrap_content"
@@ -569,8 +569,8 @@
                                 android:layout_marginStart="18dp"/>
                         </LinearLayout>
                     </RelativeLayout>
-                </com.andorid.blerc.DragView>
-                <com.andorid.blerc.DragView
+                </com.android.blerc.DragView>
+                <com.android.blerc.DragView
                     android:id="@+id/drag_view1"
                     android:scrollbars="none"
                     android:layout_width="0dp"
@@ -770,7 +770,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="230dp"
                                     android:layout_centerInParent="true">
-                                    <com.andorid.blerc.VerticalSeekBar
+                                    <com.android.blerc.VerticalSeekBar
                                         android:id="@+id/verticalSeekBar1"
                                         android:focusable="true"
                                         android:layout_width="wrap_content"
@@ -814,7 +814,7 @@
                                 android:layout_marginStart="18dp"/>
                         </LinearLayout>
                     </RelativeLayout>
-                </com.andorid.blerc.DragView>
+                </com.android.blerc.DragView>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"

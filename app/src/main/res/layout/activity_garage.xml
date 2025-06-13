@@ -18,7 +18,7 @@
         android:src="@mipmap/car_parameter"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"/>
-    <com.andorid.blerc.LottieAnimationView
+    <com.android.blerc.LottieAnimationView
         android:id="@+id/garage_animation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -78,7 +78,7 @@
                 android:layout_height="6dp"
                 android:src="@mipmap/car_arrow_up"/>
         </LinearLayout>
-        <com.andorid.blerc.ScrollingImageView
+        <com.android.blerc.ScrollingImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -126,7 +126,7 @@
                     android:layout_width="96dp"
                     android:layout_height="42dp"/>
             </LinearLayout>
-        </com.andorid.blerc.ScrollingImageView>
+        </com.android.blerc.ScrollingImageView>
         <RelativeLayout
             android:orientation="vertical"
             android:id="@+id/arrow_down_layout"

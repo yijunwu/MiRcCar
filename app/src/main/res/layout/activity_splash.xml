@@ -7,7 +7,7 @@
         android:background="@color/black"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.andorid.blerc.LottieAnimationView
+        <com.android.blerc.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,6 +17,7 @@
             app:lottie_loop="false"/>
         <ImageView
             android:id="@+id/image"
+            android:contentDescription="TODO"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -26,7 +27,7 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/> /**\10        * 这里我们实现一个小小的功能\10        * 只在第四个页面上显示一个按钮，其他页面设置为隐藏\10        * 当我们点击按钮时，进行Activity跳转\10        */ 
+            android:layout_centerHorizontal="true"/>
         <Button
             android:id="@+id/start_btn"
             android:visibility="gone"

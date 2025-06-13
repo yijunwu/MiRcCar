@@ -8,14 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import com.andorid.blerc.CircleProgressBar;
-import com.andorid.blerc.bean.Splashbean;
-import com.andorid.blerc.db.DBConstant;
-import com.andorid.blerc.dialog.BaseDialog;
-import com.andorid.blerc.util.NetworkUtils;
-import com.andorid.blerc.util.Utils;
+import com.android.blerc.CircleProgressBar;
+import com.android.blerc.bean.Splashbean;
+import com.android.blerc.db.DBConstant;
+import com.android.blerc.dialog.BaseDialog;
+import com.android.blerc.util.NetworkUtils;
+import com.android.blerc.util.Utils;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.rcfans.R;
+
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import io.reactivex.functions.Consumer;
@@ -87,7 +87,7 @@ public class AppVersionDialog extends BaseDialog {
         this.isListen = false;
     }
 
-    @Override // com.andorid.blerc.dialog.BaseDialog, android.app.Dialog
+    @Override // com.android.blerc.dialog.BaseDialog, android.app.Dialog
     protected void onStart() {
         super.onStart();
         if (this.splash) {

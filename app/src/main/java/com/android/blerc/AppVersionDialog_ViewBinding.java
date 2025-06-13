@@ -6,8 +6,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Unbinder;
 import butterknife.internal.Utils;
-import com.andorid.blerc.CircleProgressBar;
-import com.rcfans.R;
+import com.android.blerc.CircleProgressBar;
+
 
 /* loaded from: classes.dex */
 public class AppVersionDialog_ViewBinding implements Unbinder {
