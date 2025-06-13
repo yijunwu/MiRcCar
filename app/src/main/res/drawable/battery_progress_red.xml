@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/battery_red"/>
+    <item
+        android:gravity="center"
+        android:id="@android:id/progress"
+        android:left="11px"
+        android:top="7px"
+        android:right="12px"
+        android:bottom="7px">
+        <clip
+            android:gravity="left"
+            android:drawable="@drawable/battery_red_block_x"/>
+    </item>
+</layer-list>

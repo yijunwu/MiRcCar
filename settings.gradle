@@ -1,0 +1,3 @@
+rootProject.name = '智能遥控车'
+
+include 'app'
