@@ -30,6 +30,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
 
 import butterknife.ButterKnife;
@@ -166,6 +168,29 @@ public abstract class BaseMainActivity extends BarBaseActivity {
     private boolean isSameDevice = false;
     public boolean isDfu = false;
     private AlphaAnimation mHideAnimation = null;
+
+    // 1. 定义一个 ActivityResultLauncher
+    public final ActivityResultLauncher<String[]> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), permissions -> {
+                // 3. 在这里处理用户的响应
+                boolean allPermissionsGranted = true;
+                for (Boolean granted : permissions.values()) {
+                    if (!granted) {
+                        allPermissionsGranted = false;
+                        break;
+                    }
+                }
+
+                if (allPermissionsGranted) {
+                    // 用户授予了所有权限，可以开始执行蓝牙扫描了！
+                    Log.d("Permission", "所有权限已授予，开始扫描...");
+                } else {
+                    // 用户拒绝了部分或全部权限。
+                    // 你应该优雅地处理这种情况，比如显示一个提示，说明为什么需要这些权限。
+                    Log.d("Permission", "部分或全部权限被拒绝。");
+                    Toast.makeText(this, "需要蓝牙和位置权限才能扫描设备", Toast.LENGTH_SHORT).show();
+                }
+            });
     private Handler mHandler = new Handler() { // from class: com.android.blerc.BaseMainActivity.10
         @Override // android.os.Handler
         public void handleMessage(Message message) {
@@ -1366,6 +1391,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                 return;
             }
             this.mListViewDialog.setCanceledOnTouchOutside(false);
+            this.mListViewDialog.setOwnerActivity(this);
             this.mListViewDialog.show();
             return;
         }
@@ -1373,6 +1399,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
             return;
         }
         this.mListViewDialog.setCanceledOnTouchOutside(false);
+        this.mListViewDialog.setOwnerActivity(this);
         this.mListViewDialog.show();
     }
 

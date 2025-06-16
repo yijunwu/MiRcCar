@@ -1,7 +1,11 @@
 package com.android.blerc.dialog;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 
+import com.android.blerc.BaseMainActivity;
 import com.android.blerc.R;
 import com.android.blerc.adapter.DeviceAdapter;
 import com.android.blerc.common.BleConfig;
@@ -270,12 +275,46 @@ public class ListViewDialog extends BaseDialog {
     }
 
     public void startScan() {
+        checkAndRequestPermissions();
         DeviceAdapter deviceAdapter = this.adapter;
         if (deviceAdapter != null) {
             deviceAdapter.setListAll(new ArrayList());
         }
         ViseBle.getInstance().startScan(this.periodScanCallback);
-        invalidateOptionsMenu();
+        //invalidateOptionsMenu();
+    }
+
+    private void checkAndRequestPermissions() {
+        String[] permissionsToRequest;
+
+        // 根据 Android 版本确定需要请求的权限列表
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) { // Android 12+
+            permissionsToRequest = new String[]{
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_CONNECT
+            };
+        } else { // Android 6 - 11
+            permissionsToRequest = new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            };
+        }
+
+        // 检查哪些权限是尚未被授予的
+        ArrayList<String> permissionsNeeded = new ArrayList<>();
+        for (String permission : permissionsToRequest) {
+            if (mContext.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionsNeeded.add(permission);
+            }
+        }
+
+        if (!permissionsNeeded.isEmpty()) {
+            // 如果有权限尚未授予，就发起请求
+            // 2. 使用发射器发起请求
+            ((BaseMainActivity)getOwnerActivity()).requestPermissionLauncher.launch(permissionsNeeded.toArray(new String[0]));
+        } else {
+            // 所有需要的权限都已经被授予了，直接开始扫描
+            Log.d("Permission", "所有权限已就绪，直接开始扫描。");
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: private */
