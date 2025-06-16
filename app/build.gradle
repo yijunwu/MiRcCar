@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId 'com.rcfans'
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 35
         versionCode 58
         versionName "1.5.3"
@@ -47,7 +47,7 @@ android {
 
 dependencies {
     // TODO: dependencies
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation "com.airbnb.android:lottie:2.8.0"
     implementation "org.greenrobot:eventbus:3.3.1"
     def butterknifeVersion = "10.2.3" // 這是 Butter Knife 的最後一個版本

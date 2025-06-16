@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.ButtonBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.ButtonBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:gravity="bottom"
     android:orientation="horizontal"
     android:id="@+id/buttonPanel"
@@ -28,4 +28,4 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         style="?attr/buttonBarPositiveButtonStyle"/>
-</android.support.v7.widget.ButtonBarLayout>
+</androidx.appcompat.widget.ButtonBarLayout>

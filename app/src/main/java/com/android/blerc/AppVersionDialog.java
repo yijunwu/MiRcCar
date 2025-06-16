@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.ButterKnife;
-import com.android.blerc.CircleProgressBar;
+
 import com.android.blerc.bean.Splashbean;
 import com.android.blerc.db.DBConstant;
 import com.android.blerc.dialog.BaseDialog;
