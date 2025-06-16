@@ -9,13 +9,16 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.blerc.db.DBConstant;
 import com.android.blerc.dialog.CommonDialog;
 import com.android.blerc.dialog.ErrorDialog;
 import java.util.Locale;
 
 /* loaded from: classes.dex */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     public void clickCommonDialog(Dialog dialog, boolean z, int i, String str) {
