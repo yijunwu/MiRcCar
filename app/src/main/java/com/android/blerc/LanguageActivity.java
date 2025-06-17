@@ -93,8 +93,7 @@ public class LanguageActivity extends BaseActivity {
         configuration.locale = locale;
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, displayMetrics);
-        new WebView(this).destroy();
-        onCreate(null);
+        recreateWithCompatibility();
         EventBus.getDefault().post(new RxEvent("languageSwitch"));
     }
 }

@@ -52,7 +52,6 @@ public class SettingActivity extends BaseActivity implements EasyPermissions.Per
     @Override // com.android.blerc.BaseActivity, android.app.Activity
     protected void onResume() {
         super.onResume();
-        onCreate(null);
         if (DBConstant.getInstance(this).isRightHand()) {
             this.tx_preference_tip.setText(R.string.right_hand);
         } else {

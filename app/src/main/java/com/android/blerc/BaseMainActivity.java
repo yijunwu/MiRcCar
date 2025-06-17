@@ -701,6 +701,8 @@ public abstract class BaseMainActivity extends BarBaseActivity {
 
     @Override // com.android.blerc.BaseActivity, android.app.Activity
     protected void onResume() throws NumberFormatException {
+        //disable the "recreate when locale changed" behavior for main activity since it has event handling for language switching
+        this.currentActivityLocale = null;
         super.onResume();
         Log.e("CarMi", "onResume");
         if (DBConstant.getInstance(this).isSensor()) {

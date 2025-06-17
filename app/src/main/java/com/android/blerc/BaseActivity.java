@@ -1,9 +1,9 @@
 package com.android.blerc;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -21,6 +21,17 @@ import java.util.Locale;
 public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
+    // 用於儲存此 Activity 實例創建時的語言
+    protected Locale currentActivityLocale;
+
+    /**
+     * 從你的存儲中獲取當前 App 設定的語言
+     * @return "en", "zh", 等語言代碼
+     */
+    protected Locale getAppLocale() {
+        return getResources().getConfiguration().locale;
+    }
+
     public void clickCommonDialog(Dialog dialog, boolean z, int i, String str) {
     }
 
@@ -37,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         configuration.locale = locale;
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, displayMetrics);
+        this.currentActivityLocale = locale;
     }
 
     public void setFullscreen(boolean z, boolean z2) {
@@ -132,5 +144,22 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setFullscreen(false, false);
+
+        // 檢查 App 的全局語言設定是否與當前 Activity 的語言不一致
+        if (this.currentActivityLocale != null && !this.currentActivityLocale.equals(getAppLocale())) {
+            // 如果不一致，說明語言在其他地方被更改了，需要重建當前 Activity
+            recreateWithCompatibility();
+        }
+    }
+
+    protected void recreateWithCompatibility() {
+        // 語言已變更，使用 Intent 重啟 Activity
+        Intent intent = new Intent(this, this.getClass());
+        // 清除此 Activity 之上的所有 Activity，並將它作為新的任務棧頂
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+        finish(); // 關閉當前的舊 Activity 實例
+        return;   // 立即返回，防止 onResume 繼續執行後續程式碼
     }
 }
