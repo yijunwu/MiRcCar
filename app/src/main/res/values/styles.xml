@@ -463,7 +463,7 @@
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="tooltipForegroundColor">@color/foreground_material_light</item>
         <item name="tooltipFrameBackground">@drawable/tooltip_frame_light</item>
-        <item name="viewInflaterClass">android.support.v7.app.AppCompatViewInflater</item>
+        <item name="viewInflaterClass">androidx.appcompat.app.AppCompatViewInflater</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionBarOverlay">false</item>
         <item name="windowActionModeOverlay">false</item>
@@ -603,7 +603,7 @@
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="tooltipForegroundColor">@color/foreground_material_dark</item>
         <item name="tooltipFrameBackground">@drawable/tooltip_frame_dark</item>
-        <item name="viewInflaterClass">android.support.v7.app.AppCompatViewInflater</item>
+        <item name="viewInflaterClass">androidx.appcompat.app.AppCompatViewInflater</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionBarOverlay">false</item>
         <item name="windowActionModeOverlay">false</item>
