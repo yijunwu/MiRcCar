@@ -48,20 +48,20 @@ public class GuideActivity extends BaseActivity {
         this.banner.setAdapter(new BGABanner.Adapter<ImageView, Integer>() { // from class: com.android.blerc.GuideActivity.2
             @Override // cn.bingoogolapple.bgabanner.BGABanner.Adapter
             public void fillBannerItem(BGABanner bGABanner, final ImageView imageView, Integer num, int i) {
-//                Glide.with((Activity) GuideActivity.this)
-//                        .load(num)
-//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .skipMemoryCache(true)
-//                        .dontAnimate()
-//                        .into((RequestBuilder) new CustomTarget<Drawable>() { // from class: com.android.blerc.GuideActivity.2.1
-//                    @Override // com.bumptech.glide.request.target.Target
-//                    public void onLoadCleared(Drawable drawable) {
-//                    }
-//
-//                    public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
-//                        imageView.setImageBitmap(GuideActivity.createScaledBitmap(((BitmapDrawable) drawable).getBitmap(), imageView.getMeasuredWidth(), imageView.getMeasuredHeight()));
-//                    }
-//                });
+                Glide.with((Activity) GuideActivity.this)
+                        .load(num)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .dontAnimate()
+                        .into(new CustomTarget<Drawable>() { // from class: com.android.blerc.GuideActivity.2.1
+                    @Override // com.bumptech.glide.request.target.Target
+                    public void onLoadCleared(Drawable drawable) {
+                    }
+
+                    public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
+                        imageView.setImageBitmap(GuideActivity.createScaledBitmap(((BitmapDrawable) drawable).getBitmap(), imageView.getMeasuredWidth(), imageView.getMeasuredHeight()));
+                    }
+                });
             }
         });
         if (DBConstant.getInstance(this).getLanguage().equals("zh")) {
