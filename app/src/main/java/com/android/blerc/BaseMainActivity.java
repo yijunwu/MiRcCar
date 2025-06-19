@@ -170,6 +170,12 @@ public abstract class BaseMainActivity extends BarBaseActivity {
     private InputManager mInputManager;
     private InputDevice mGamepadDevice;
     private boolean isGamepadControlActive = false;
+
+    // --- [修复问题 新增] --- 新增变量用于保存手柄摇杆的最新状态 ---
+    private float gamepadSteerInput = 0.0f;
+    private float gamepadThrottleInput = 0.0f;
+    // --- [修复问题 新增结束] ---
+
     // --- [新增结束] ---
 
     private final String TAG = "CarMi";
@@ -850,9 +856,13 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                     Toast.makeText(BaseMainActivity.this, "手柄已断开: " + mGamepadDevice.getName(), Toast.LENGTH_SHORT).show();
                     mGamepadDevice = null;
                     isGamepadControlActive = false;
-                    // 将控制值重置到中心位置
+
+                    // --- [修复问题 修改] --- 手柄断开时，重置手柄状态和控制值 ---
+                    gamepadSteerInput = 0.0f;
+                    gamepadThrottleInput = 0.0f;
                     hor_value = 1000;
                     ver_value = 1000;
+                    // --- [修复问题 修改结束] ---
                 }
             }
 
@@ -952,17 +962,10 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                 throttleInput = rightStickY;
             }
 
-            // --- 将手柄值 (-1.0 to 1.0) 转换为车辆控制值 (0 to 2000) ---
-            // hor_value 控制转向
-            hor_value = (int) (1000 + (steerInput * 1000));
-            // ver_value 控制油门
-            ver_value = (int) (1000 + (throttleInput * 1000));
-
-            // 限制值的范围，防止溢出
-            hor_value = Math.max(0, Math.min(2000, hor_value));
-            ver_value = Math.max(0, Math.min(2000, ver_value));
-
-            // Log.d("Gamepad", "hor_value: " + hor_value + ", ver_value: " + ver_value);
+            // --- [修复问题 修改] --- 更新手柄状态变量，而不是直接修改 hor_value ---
+            gamepadSteerInput = steerInput;
+            gamepadThrottleInput = throttleInput;
+            // --- [修复问题 修改结束] ---
 
             return true; // 事件已处理
         }
@@ -1524,9 +1527,14 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                         e.printStackTrace();
                     }
 
-                    // --- [修改] --- 根据是否为手柄模式选择不同的输入源 ---
-                    // 如果手柄未激活，则使用屏幕控件或陀螺仪的输入
-                    if (!isGamepadControlActive) {
+                    // --- [修复问题 修改] --- 每次循环开始时，都根据最新的输入模式刷新控制值 ---
+                    if (isGamepadControlActive) {
+                        // 手柄模式：从保存的手柄状态变量刷新 hor_value 和 ver_value
+                        hor_value = (int) (1000 + (gamepadSteerInput * 1000));
+                        ver_value = (int) (1000 + (gamepadThrottleInput * 1000));
+
+                    } else {
+                        // 屏幕或陀螺仪模式：沿用原有逻辑
                         if (DBConstant.getInstance(BaseMainActivity.this).isRightHand()) {
                             BaseMainActivity baseMainActivity = BaseMainActivity.this;
                             baseMainActivity.hor_value = baseMainActivity.horiSeekBar.getProgress();
@@ -1549,9 +1557,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                             baseMainActivity5.hor_value = (int) (1000.0f - (baseMainActivity5.gx * 33.0f));
                         }
                     }
-                    // 如果手柄已激活, hor_value 和 ver_value 已经由 onGenericMotionEvent 更新，
-                    // 所以此处无需做任何事。
-                    // --- [修改结束] ---
+                    // --- [修复问题 修改结束] ---
 
                     if (BaseMainActivity.this.switch_turn.isChecked()) {
                         BaseMainActivity baseMainActivity6 = BaseMainActivity.this;
