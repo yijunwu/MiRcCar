@@ -1346,7 +1346,8 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                     } else if (BaseMainActivity.this.hor_value < 0) {
                         BaseMainActivity.this.hor_value = 0;
                     }
-                    //TODO wuyijun BaseMainActivity.this.ver_value = (((r0.ver_value - 1000) * BaseMainActivity.this.hor_accelerator_dr_value) / 100) + 1000;
+                    // TODO wuyijun double check this
+                    BaseMainActivity.this.ver_value = (((BaseMainActivity.this.ver_value - 1000) * BaseMainActivity.this.hor_accelerator_dr_value) / 100) + 1000;
                     if (BaseMainActivity.this.ver_value > 2000) {
                         BaseMainActivity.this.ver_value = 2000;
                     } else if (BaseMainActivity.this.ver_value < 0) {
