@@ -75,6 +75,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+// --- [新增] --- 引入手柄支持所需的相关包 ---
+import android.content.Context;
+import android.hardware.input.InputManager;
+import android.view.InputDevice;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+// --- [新增结束] ---
+
 /* loaded from: classes.dex */
 public abstract class BaseMainActivity extends BarBaseActivity {
     public static final float EPSILON = 1.0E-9f;
@@ -157,6 +165,13 @@ public abstract class BaseMainActivity extends BarBaseActivity {
     VerticalSeekBar verticalSeekBar1;
     LinearLayout verticalSeekBar1_layout;
     LinearLayout verticalSeekBar_layout;
+
+    // --- [新增] --- 用于手柄支持的成员变量 ---
+    private InputManager mInputManager;
+    private InputDevice mGamepadDevice;
+    private boolean isGamepadControlActive = false;
+    // --- [新增结束] ---
+
     private final String TAG = "CarMi";
     private final int MY_PERMISSIONS_REQUEST_MULTIPLE = 2;
     int centerbtn_flag = 1;
@@ -624,6 +639,11 @@ public abstract class BaseMainActivity extends BarBaseActivity {
         ButterKnife.bind(this);
         initSeekBarView();
         initView();
+
+        // --- [新增] --- 初始化并设置手柄支持 ---
+        setupGamepadSupport();
+        // --- [新增结束] ---
+
         this.agreementDialog = new AgreementDialog(this, R.style.dialog, new AgreementDialog.OnCloseListener() { // from class: com.android.blerc.BaseMainActivity.1
             @Override // com.android.blerc.dialog.AgreementDialog.OnCloseListener
             public void onClick(Dialog dialog, boolean z) {
@@ -799,6 +819,215 @@ public abstract class BaseMainActivity extends BarBaseActivity {
         this.drag_view.refreshLayout();
         this.drag_view1.refreshLayout();
     }
+
+    // --- [新增] --- 所有与手柄支持相关的新方法 ---
+
+    /**
+     * 设置手柄支持，包括初始化InputManager和注册监听器。
+     */
+    private void setupGamepadSupport() {
+        mInputManager = (InputManager) getSystemService(Context.INPUT_SERVICE);
+        checkForGamepad(); // 检查是否已有手柄连接
+
+        // 注册一个监听器，以便在手柄连接或断开时收到通知
+        mInputManager.registerInputDeviceListener(new InputManager.InputDeviceListener() {
+            @Override
+            public void onInputDeviceAdded(int deviceId) {
+                InputDevice dev = InputDevice.getDevice(deviceId);
+                if (isGamepad(dev)) {
+                    Log.d("Gamepad", "手柄已连接: " + dev.getName());
+                    mGamepadDevice = dev;
+                    isGamepadControlActive = true;
+                    // 提示用户手柄已连接。建议将 "手柄已连接" 等字符串定义在 strings.xml 中
+                    Toast.makeText(BaseMainActivity.this, "手柄已连接: " + dev.getName(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onInputDeviceRemoved(int deviceId) {
+                if (mGamepadDevice != null && mGamepadDevice.getId() == deviceId) {
+                    Log.d("Gamepad", "手柄已断开: " + mGamepadDevice.getName());
+                    Toast.makeText(BaseMainActivity.this, "手柄已断开: " + mGamepadDevice.getName(), Toast.LENGTH_SHORT).show();
+                    mGamepadDevice = null;
+                    isGamepadControlActive = false;
+                    // 将控制值重置到中心位置
+                    hor_value = 1000;
+                    ver_value = 1000;
+                }
+            }
+
+            @Override
+            public void onInputDeviceChanged(int deviceId) {
+                // 此处暂不使用
+            }
+        }, mHandler); // 使用现有的Handler来处理UI线程的更新
+    }
+
+    /**
+     * 在App启动时检查是否已经有手柄连接。
+     */
+    private void checkForGamepad() {
+        int[] deviceIds = mInputManager.getInputDeviceIds();
+        for (int deviceId : deviceIds) {
+            InputDevice dev = InputDevice.getDevice(deviceId);
+            if (isGamepad(dev)) {
+                mGamepadDevice = dev;
+                isGamepadControlActive = true;
+                Log.d("Gamepad", "发现已连接的手柄: " + dev.getName());
+                Toast.makeText(this, "手柄已连接: " + dev.getName(), Toast.LENGTH_SHORT).show();
+                break; // 找到一个即可
+            }
+        }
+    }
+
+    /**
+     * 判断一个输入设备是否是游戏手柄。
+     * @param device 要检查的输入设备
+     * @return 如果是手柄则返回 true，否则返回 false
+     */
+    private boolean isGamepad(InputDevice device) {
+        if (device == null) return false;
+        int sources = device.getSources();
+        // 检查设备源是否包含 SOURCE_JOYSTICK 或 SOURCE_GAMEPAD
+        return ((sources & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK) ||
+                ((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD);
+    }
+
+    /**
+     * 获取带有死区处理的摇杆轴值。
+     * @param event 运动事件
+     * @param device 输入设备
+     * @param axis 要获取的轴
+     * @return 处理死区后的轴值，范围通常是 -1.0 到 1.0
+     */
+    private float getCenteredAxis(MotionEvent event, InputDevice device, int axis) {
+        final InputDevice.MotionRange range = device.getMotionRange(axis, event.getSource());
+        if (range != null) {
+            final float flat = range.getFlat(); // 获取死区范围
+            final float value = event.getAxisValue(axis);
+            // 如果轴值大于死区，则返回该值，否则返回0
+            if (Math.abs(value) > flat) {
+                return value;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 重写此方法来处理模拟输入事件，如摇杆和扳机。
+     */
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+        if (!isGamepadControlActive || mGamepadDevice == null) {
+            return super.onGenericMotionEvent(event);
+        }
+
+        // 确认事件来自摇杆并且是移动事件
+        if ((event.getSource() & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK &&
+                event.getAction() == MotionEvent.ACTION_MOVE) {
+
+            // --- 获取各摇杆和扳机的输入值 ---
+            // 左摇杆 (Left Stick)
+            float leftStickX = getCenteredAxis(event, mGamepadDevice, MotionEvent.AXIS_X);
+
+            // 右摇杆 (Right Stick) - Y轴通常是 AXIS_RZ
+            float rightStickY = -getCenteredAxis(event, mGamepadDevice, MotionEvent.AXIS_RZ); // Y轴反向，使向上推为正
+
+            // 扳机 (Triggers)
+            float lTrigger = getCenteredAxis(event, mGamepadDevice, MotionEvent.AXIS_LTRIGGER); // 左扳机, 0.0 到 1.0
+            float rTrigger = getCenteredAxis(event, mGamepadDevice, MotionEvent.AXIS_RTRIGGER); // 右扳机, 0.0 到 1.0
+
+            // 方向键 (D-Pad) 也可能作为轴报告
+            float dpadX = getCenteredAxis(event, mGamepadDevice, MotionEvent.AXIS_HAT_X);
+
+            // --- 将手柄输入映射到车辆控制 ---
+            // 转向控制：优先使用D-Pad，其次是左摇杆
+            float steerInput = (Math.abs(dpadX) > 0.1f) ? dpadX : leftStickX;
+
+            // 油门控制：优先使用扳机，其次是右摇杆
+            float throttleInput;
+            if (rTrigger > 0.1f || lTrigger > 0.1f) {
+                throttleInput = rTrigger - lTrigger; // 合成范围 -1.0 (反向) 到 1.0 (正向)
+            } else {
+                throttleInput = rightStickY;
+            }
+
+            // --- 将手柄值 (-1.0 to 1.0) 转换为车辆控制值 (0 to 2000) ---
+            // hor_value 控制转向
+            hor_value = (int) (1000 + (steerInput * 1000));
+            // ver_value 控制油门
+            ver_value = (int) (1000 + (throttleInput * 1000));
+
+            // 限制值的范围，防止溢出
+            hor_value = Math.max(0, Math.min(2000, hor_value));
+            ver_value = Math.max(0, Math.min(2000, ver_value));
+
+            // Log.d("Gamepad", "hor_value: " + hor_value + ", ver_value: " + ver_value);
+
+            return true; // 事件已处理
+        }
+
+        return super.onGenericMotionEvent(event);
+    }
+
+    /**
+     * 重写此方法来处理按键事件。
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (!isGamepadControlActive) {
+            return super.onKeyDown(keyCode, event);
+        }
+
+        boolean handled = false;
+        // 确认事件来自手柄，并且是第一次按下（避免长按重复触发）
+        if (((event.getSource() & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) &&
+                (event.getRepeatCount() == 0)) {
+
+            Log.d("Gamepad", "按键按下: " + KeyEvent.keyCodeToString(keyCode));
+
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BUTTON_A: // 通常是手柄上的'A'键
+                    // 示例：触发“低速模式”按钮
+                    if (low_speed_imgbtn != null) low_speed_imgbtn.performClick();
+                    handled = true;
+                    break;
+                case KeyEvent.KEYCODE_BUTTON_B: // 通常是手柄上的'B'键
+                    // 示例：触发“刹车”按钮
+                    if (brake_imgbtn != null) brake_imgbtn.performClick();
+                    handled = true;
+                    break;
+                case KeyEvent.KEYCODE_BUTTON_Y: // 通常是手柄上的'Y'键
+                    // 示例：触发“切换陀螺仪模式”按钮
+                    if (switch_mode_imgbtn != null) switch_mode_imgbtn.performClick();
+                    handled = true;
+                    break;
+                case KeyEvent.KEYCODE_BUTTON_X: // 通常是手柄上的'X'键
+                    Toast.makeText(this, "Button X pressed", Toast.LENGTH_SHORT).show();
+                    handled = true;
+                    break;
+                case KeyEvent.KEYCODE_BUTTON_L1: // 左肩键 LB
+                    Toast.makeText(this, "Button LB pressed", Toast.LENGTH_SHORT).show();
+                    handled = true;
+                    break;
+                case KeyEvent.KEYCODE_BUTTON_R1: // 右肩键 RB
+                    Toast.makeText(this, "Button RB pressed", Toast.LENGTH_SHORT).show();
+                    handled = true;
+                    break;
+                // 方向键如果被作为按键事件处理，放这里
+                case KeyEvent.KEYCODE_DPAD_UP:
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    // 大部分手柄会通过 onGenericMotionEvent 处理方向键，但作为备用
+                    handled = true;
+                    break;
+            }
+        }
+        return handled || super.onKeyDown(keyCode, event);
+    }
+
+    // --- [新增结束] ---
 
     public void showConnectDialog() {
         if (BleDeviceManager.getInstance().isBleConnectState() || this.mListViewDialog.isShowing()) {
@@ -1294,27 +1523,36 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (DBConstant.getInstance(BaseMainActivity.this).isRightHand()) {
-                        BaseMainActivity baseMainActivity = BaseMainActivity.this;
-                        baseMainActivity.hor_value = baseMainActivity.horiSeekBar.getProgress();
-                        BaseMainActivity baseMainActivity2 = BaseMainActivity.this;
-                        baseMainActivity2.ver_value = baseMainActivity2.verticalSeekBar.getProgress();
-                    } else {
-                        BaseMainActivity baseMainActivity3 = BaseMainActivity.this;
-                        baseMainActivity3.hor_value = baseMainActivity3.horiSeekBar1.getProgress();
-                        BaseMainActivity baseMainActivity4 = BaseMainActivity.this;
-                        baseMainActivity4.ver_value = baseMainActivity4.verticalSeekBar1.getProgress();
-                    }
-                    if (DBConstant.getInstance(BaseMainActivity.this).isSensor()) {
-                        if (BaseMainActivity.this.gx >= 30.0f) {
-                            BaseMainActivity.this.gx = 30.0f;
+
+                    // --- [修改] --- 根据是否为手柄模式选择不同的输入源 ---
+                    // 如果手柄未激活，则使用屏幕控件或陀螺仪的输入
+                    if (!isGamepadControlActive) {
+                        if (DBConstant.getInstance(BaseMainActivity.this).isRightHand()) {
+                            BaseMainActivity baseMainActivity = BaseMainActivity.this;
+                            baseMainActivity.hor_value = baseMainActivity.horiSeekBar.getProgress();
+                            BaseMainActivity baseMainActivity2 = BaseMainActivity.this;
+                            baseMainActivity2.ver_value = baseMainActivity2.verticalSeekBar.getProgress();
+                        } else {
+                            BaseMainActivity baseMainActivity3 = BaseMainActivity.this;
+                            baseMainActivity3.hor_value = baseMainActivity3.horiSeekBar1.getProgress();
+                            BaseMainActivity baseMainActivity4 = BaseMainActivity.this;
+                            baseMainActivity4.ver_value = baseMainActivity4.verticalSeekBar1.getProgress();
                         }
-                        if (BaseMainActivity.this.gx <= -30.0f) {
-                            BaseMainActivity.this.gx = -30.0f;
+                        if (DBConstant.getInstance(BaseMainActivity.this).isSensor()) {
+                            if (BaseMainActivity.this.gx >= 30.0f) {
+                                BaseMainActivity.this.gx = 30.0f;
+                            }
+                            if (BaseMainActivity.this.gx <= -30.0f) {
+                                BaseMainActivity.this.gx = -30.0f;
+                            }
+                            BaseMainActivity baseMainActivity5 = BaseMainActivity.this;
+                            baseMainActivity5.hor_value = (int) (1000.0f - (baseMainActivity5.gx * 33.0f));
                         }
-                        BaseMainActivity baseMainActivity5 = BaseMainActivity.this;
-                        baseMainActivity5.hor_value = (int) (1000.0f - (baseMainActivity5.gx * 33.0f));
                     }
+                    // 如果手柄已激活, hor_value 和 ver_value 已经由 onGenericMotionEvent 更新，
+                    // 所以此处无需做任何事。
+                    // --- [修改结束] ---
+
                     if (BaseMainActivity.this.switch_turn.isChecked()) {
                         BaseMainActivity baseMainActivity6 = BaseMainActivity.this;
                         baseMainActivity6.hor_value = 2000 - baseMainActivity6.hor_value;
