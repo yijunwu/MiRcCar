@@ -1,5 +1,7 @@
 package com.android.blerc;
 
+import static java.lang.Math.abs;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -548,6 +550,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
     };
     private int hor_value = 1000;
     private int ver_value = 1000;
+    private int last_ver_value = 1000;
     private int hor_turn_middle_value = 45;
     private int hor_turn_dr_value = 100;
     private int hor_accelerator_dr_value = 100;
@@ -861,6 +864,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                     gamepadSteerInput = 0.0f;
                     gamepadThrottleInput = 0.0f;
                     hor_value = 1000;
+                    last_ver_value = 1000;
                     ver_value = 1000;
                     // --- [修复问题 修改结束] ---
                 }
@@ -916,7 +920,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
             final float flat = range.getFlat(); // 获取死区范围
             final float value = event.getAxisValue(axis);
             // 如果轴值大于死区，则返回该值，否则返回0
-            if (Math.abs(value) > flat) {
+            if (abs(value) > flat) {
                 return value;
             }
         }
@@ -952,7 +956,7 @@ public abstract class BaseMainActivity extends BarBaseActivity {
 
             // --- 将手柄输入映射到车辆控制 ---
             // 转向控制：优先使用D-Pad，其次是左摇杆
-            float steerInput = (Math.abs(dpadX) > 0.1f) ? dpadX : leftStickX;
+            float steerInput = (abs(dpadX) > 0.1f) ? dpadX : leftStickX;
 
             // 油门控制：优先使用扳机，其次是右摇杆
             float throttleInput;
@@ -1524,7 +1528,8 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                     try {
                         Thread.sleep(20L);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
+                        //continue;
                     }
 
                     // --- [修复问题 修改] --- 每次循环开始时，都根据最新的输入模式刷新控制值 ---
@@ -1597,6 +1602,38 @@ public abstract class BaseMainActivity extends BarBaseActivity {
                     } else if (BaseMainActivity.this.ver_value < 0) {
                         BaseMainActivity.this.ver_value = 0;
                     }
+                    int diff = abs(BaseMainActivity.this.ver_value - BaseMainActivity.this.last_ver_value);
+                    boolean signDiff = (BaseMainActivity.this.ver_value - 1000) * (BaseMainActivity.this.last_ver_value - 1000) < 0;
+                    int temp = BaseMainActivity.this.ver_value;
+                    if (diff > 200 || signDiff) { //同方向，加速过快。对策，缓慢加速
+                        int times = diff / 100 + 1;
+                        for (int i = 1; i < times; i ++) {
+                            BaseMainActivity.this.ver_value = ((temp - BaseMainActivity.this.last_ver_value) / times) * i + BaseMainActivity.this.last_ver_value;
+                            BaseMainActivity.this.writeChar3(HexUtil.byteMerger(HexUtil.intbytes_direction(BaseMainActivity.this.hor_value), HexUtil.intbytes(BaseMainActivity.this.hor_value, BaseMainActivity.this.ver_value), HexUtil.intbytes_accelerator(BaseMainActivity.this.ver_value)));
+                            try {
+                                Thread.sleep(100L);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } /* else if (diff > 1000 && signDiff) {
+                        BaseMainActivity.this.ver_value = ((BaseMainActivity.this.ver_value - 1000) / 5) + 1000;
+                        try {
+                            Thread.sleep(100L);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }  else if (signDiff) { //不同方向。对策：先回到0
+                        BaseMainActivity.this.ver_value = 0;
+                        BaseMainActivity.this.writeChar3(HexUtil.byteMerger(HexUtil.intbytes_direction(BaseMainActivity.this.hor_value), HexUtil.intbytes(BaseMainActivity.this.hor_value, BaseMainActivity.this.ver_value), HexUtil.intbytes_accelerator(BaseMainActivity.this.ver_value)));
+                        try {
+                            Thread.sleep(100L);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } */
+                    BaseMainActivity.this.last_ver_value = BaseMainActivity.this.ver_value;
+                    BaseMainActivity.this.ver_value = temp;
                     BaseMainActivity.this.writeChar3(HexUtil.byteMerger(HexUtil.intbytes_direction(BaseMainActivity.this.hor_value), HexUtil.intbytes(BaseMainActivity.this.hor_value, BaseMainActivity.this.ver_value), HexUtil.intbytes_accelerator(BaseMainActivity.this.ver_value)));
                 }
             }
